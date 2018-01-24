@@ -1,0 +1,12 @@
+{
+  "name": "Indecision-app",
+  "version": "1.0.0",
+  "description": "test project",
+  "main": "index.js",
+  "author": "Harsh Hundiwala",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "^6.24.1"
+  }
+}
