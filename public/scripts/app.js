@@ -4,90 +4,94 @@ console.log("App.js is running");
 
 var app = document.getElementById('app');
 
-var count = 0;
-var addOne = function addOne() {
-    count++;
-    console.log("Count!" + count);
-    renderCounter();
+var application = {
+    title: "Indecision App",
+    subtitle: "Let me clear your ambiguity!",
+    option: []
 };
 
-var minusOne = function minusOne() {
-    count--;
-    console.log("Count!" + count);
-    renderCounter();
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault();
+    var option = e.target.elements.option.value;
+    if (option) {
+        application.option.push(option);
+        e.target.elements.option.value = "";
+        render();
+    } else {
+        //do not run the code
+    }
 };
 
-var resetCount = function resetCount() {
-    count = 0;
-    console.log("Count!" + count);
-    renderCounter();
+var removeAll = function removeAll() {
+    application.option = [];
+    render();
 };
-var test_trmplate = React.createElement(
-    "div",
-    null,
-    React.createElement(
-        "p",
-        null,
-        "This is just the template "
-    ),
-    React.createElement(
-        "h1",
-        null,
-        " Counter : ",
-        count
-    ),
-    React.createElement(
-        "button",
-        { onClick: addOne },
-        " +1 "
-    ),
-    React.createElement(
-        "button",
-        { onClick: minusOne },
-        " -1 "
-    ),
-    React.createElement(
-        "button",
-        { onClick: resetCount },
-        " Reset "
-    )
-);
 
-console.log(test_trmplate);
+var makeDecision = function makeDecision() {
+    var num = Math.floor(Math.random() * application.option.length);
+    console.log(application.option[num]);
+};
 
-ReactDOM.render(test_trmplate, app);
-
-var renderCounter = function renderCounter() {
-    var test_trmplate = React.createElement(
+var render = function render() {
+    var template = React.createElement(
         "div",
         null,
         React.createElement(
-            "p",
-            null,
-            "This is just the template "
-        ),
-        React.createElement(
             "h1",
             null,
-            " Counter : ",
-            count
+            application.title
+        ),
+        React.createElement(
+            "p",
+            null,
+            application.subtitle
+        ),
+        React.createElement(
+            "h3",
+            null,
+            "Option List"
+        ),
+        React.createElement(
+            "p",
+            null,
+            application.option.length > 0 ? "Here are your options!!" : "You have no options in the list"
+        ),
+        React.createElement(
+            "ol",
+            null,
+            application.option.map(function (num) {
+                return React.createElement(
+                    "li",
+                    { key: num },
+                    num
+                );
+            })
         ),
         React.createElement(
             "button",
-            { onClick: addOne },
-            " +1 "
+            { disabled: application.option.length == 0, onClick: makeDecision },
+            "What should I do?"
         ),
         React.createElement(
             "button",
-            { onClick: minusOne },
-            " -1 "
+            { onClick: removeAll },
+            " Remove All "
         ),
+        " ",
+        React.createElement("br", null),
         React.createElement(
-            "button",
-            { onClick: resetCount },
-            " Reset "
+            "form",
+            { onSubmit: onFormSubmit },
+            React.createElement("input", { type: "text", name: "option" }),
+            React.createElement(
+                "button",
+                null,
+                "Add option"
+            )
         )
     );
 
-    ReactDOM.render(test_trmplate, app);
+    ReactDOM.render(template, app);
 };
+
+render();
