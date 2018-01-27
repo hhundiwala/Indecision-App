@@ -2,27 +2,92 @@
 
 console.log("App.js is running");
 
-var template = React.createElement(
-    "h1",
-    null,
-    "This is it, the apolocalypse!!! "
-);
+var app = document.getElementById('app');
 
+var count = 0;
+var addOne = function addOne() {
+    count++;
+    console.log("Count!" + count);
+    renderCounter();
+};
+
+var minusOne = function minusOne() {
+    count--;
+    console.log("Count!" + count);
+    renderCounter();
+};
+
+var resetCount = function resetCount() {
+    count = 0;
+    console.log("Count!" + count);
+    renderCounter();
+};
 var test_trmplate = React.createElement(
     "div",
     null,
     React.createElement(
-        "h1",
-        null,
-        "Name: Harsh Hundiwala"
-    ),
-    React.createElement(
         "p",
         null,
-        "Don't mess with me!"
+        "This is just the template "
+    ),
+    React.createElement(
+        "h1",
+        null,
+        " Counter : ",
+        count
+    ),
+    React.createElement(
+        "button",
+        { onClick: addOne },
+        " +1 "
+    ),
+    React.createElement(
+        "button",
+        { onClick: minusOne },
+        " -1 "
+    ),
+    React.createElement(
+        "button",
+        { onClick: resetCount },
+        " Reset "
     )
 );
 
-var app = document.getElementById('app');
+console.log(test_trmplate);
 
 ReactDOM.render(test_trmplate, app);
+
+var renderCounter = function renderCounter() {
+    var test_trmplate = React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "p",
+            null,
+            "This is just the template "
+        ),
+        React.createElement(
+            "h1",
+            null,
+            " Counter : ",
+            count
+        ),
+        React.createElement(
+            "button",
+            { onClick: addOne },
+            " +1 "
+        ),
+        React.createElement(
+            "button",
+            { onClick: minusOne },
+            " -1 "
+        ),
+        React.createElement(
+            "button",
+            { onClick: resetCount },
+            " Reset "
+        )
+    );
+
+    ReactDOM.render(test_trmplate, app);
+};
